@@ -1,13 +1,14 @@
 import { useState } from "react"
 
+const apiUrl = process.env.REACT_APP_API_URL;
+console.log(apiUrl+'url');
 export const useGenUrl=()=>{
     const [isLoading,setIsLoading]=useState(false);
     const [error,setError]=useState(false);
-
     const genurl=async (url)=>{
         setIsLoading(true);
         setError(false);
-        const response = await fetch('/url',{
+        const response = await fetch(apiUrl+'url',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({url})

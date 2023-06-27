@@ -21,7 +21,7 @@ const typographyStyle = {
     padding: '12px 9px',
 
 }
-
+const apiUrl = process.env.REACT_APP_API_URL;
 const Form = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const { genurl, isLoading, error } = useGenUrl();
@@ -58,7 +58,7 @@ const Form = () => {
         event.preventDefault();
         const short = await genurl(searchQuery);
         if (short) {
-            handleOpen('http://localhost:8000/' + short);
+            handleOpen(apiUrl + short);
         }
         
     };
