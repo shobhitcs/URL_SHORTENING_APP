@@ -58,7 +58,7 @@ const Form = () => {
         event.preventDefault();
         const short = await genurl(searchQuery);
         if (short) {
-            handleOpen(apiUrl + short);
+            handleOpen(apiUrl +'/' + short);
         }
         
     };

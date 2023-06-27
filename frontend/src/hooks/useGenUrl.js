@@ -8,7 +8,7 @@ export const useGenUrl=()=>{
     const genurl=async (url)=>{
         setIsLoading(true);
         setError(false);
-        const response = await fetch(apiUrl+'url',{
+        const response = await fetch('/url',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({url})
