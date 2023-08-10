@@ -125,7 +125,7 @@ const Form = () => {
                     </div>
                 </Box>
             </Modal>
-            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleCloseSnack}>
+            <Snackbar open={snackOpen} autoHideDuration={12000} onClose={handleCloseSnack}>
                 <Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
                     Our website is hosted on a free server, so initial responses could take over 30 seconds; later responses will be faster as the server sleeps during inactivity.
                 </Alert>
