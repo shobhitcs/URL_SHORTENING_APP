@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button, LinearProgress, Alert  } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, LinearProgress, Alert, Snackbar } from '@mui/material';
 import { useGenUrl } from '../hooks/useGenUrl';
 const modalStyle = {
     display: 'flex',
@@ -46,7 +46,7 @@ const Form = () => {
 
     const handleCopyToClipboard = async () => {
         try {
-            await navigator.clipboard.writeText(modalvalue); 
+            await navigator.clipboard.writeText(modalvalue);
             setCopySuccess(true);
         } catch (error) {
             console.error('Failed to copy to clipboard:', error);
@@ -58,9 +58,18 @@ const Form = () => {
         event.preventDefault();
         const short = await genurl(searchQuery);
         if (short) {
-            handleOpen(apiUrl +'/' + short);
+            handleOpen(apiUrl + '/' + short);
         }
-        
+
+    };
+    console.log('l')
+    const [snackOpen, setSnackOpen] = React.useState(true);
+    const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackOpen(false);
     };
 
     return (
@@ -82,12 +91,12 @@ const Form = () => {
                     }}
                 />
                 {isLoading && <LinearProgress color='secondary' />}
-                <Button type="submit" fullWidth variant="contained" color="secondary" sx={{ marginTop: '16px'}}>
+                <Button type="submit" fullWidth variant="contained" color="secondary" sx={{ marginTop: '16px' }}>
                     Generate short URL
                 </Button>
 
             </form>
-            {error && <Alert severity="error" sx={{border: '2px solid #BB6464', marginTop: '10px'}}>Internal Service Error !</Alert>}
+            {error && <Alert severity="error" sx={{ border: '2px solid #BB6464', marginTop: '10px' }}>Internal Service Error !</Alert>}
 
 
             <Modal open={open} onClose={handleClose} style={modalStyle}>
@@ -116,6 +125,11 @@ const Form = () => {
                     </div>
                 </Box>
             </Modal>
+            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleCloseSnack}>
+                <Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
+                    Our website is hosted on a free server, so initial responses could take over 30 seconds; later responses will be faster as the server sleeps during inactivity.
+                </Alert>
+            </Snackbar>
         </div >
     );
 };
